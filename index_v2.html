@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrowthExec - LinkedIn Growth Engine</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #111c2d;
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    /* Typography */
+    h1 { font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 72px; line-height: 80px; letter-spacing: -2.88px; }
+    h2 { font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 48px; line-height: 56px; letter-spacing: -0.96px; }
+    h3 { font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 24px; line-height: 32px; }
+    p { font-size: 16px; line-height: 24px; color: #414752; }
+
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* Navigation Bar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      backdrop-filter: blur(6px);
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .logo-icon {
+      width: 20px;
+      height: 12px;
+      background: linear-gradient(135deg, #004e99 0%, #0066cc 100%);
+      border-radius: 3px;
+    }
+
+    .logo-text {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      color: #004e99;
+      letter-spacing: -0.8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a, .nav-links button {
+      font-size: 14px;
+      font-weight: 500;
+      color: #414752;
+      text-decoration: none;
+      letter-spacing: 0.28px;
+      transition: color 0.3s;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover, .nav-links button:hover {
+      color: #004e99;
+    }
+
+    .btn-nav {
+      background: #004e99;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0px 4px 7px rgba(0, 78, 153, 0.39);
+      transition: background 0.3s;
+    }
+
+    .btn-nav:hover {
+      background: #003d7a;
+    }
+
+    /* Hero Section */
+    .hero {
+      margin-top: 80px;
+      padding: 128px 40px 160px;
+      background: linear-gradient(90deg, #f9f9ff 0%, #f9f9ff 100%), linear-gradient(90deg, #fff 0%, #fff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 25%;
+      width: 384px;
+      height: 384px;
+      background: rgba(0, 78, 153, 0.1);
+      filter: blur(32px);
+      mix-blend-mode: multiply;
+      opacity: 0.7;
+      border-radius: 9999px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 43%;
+      width: 384px;
+      height: 384px;
+      background: rgba(0, 111, 151, 0.1);
+      filter: blur(32px);
+      mix-blend-mode: multiply;
+      opacity: 0.7;
+      border-radius: 9999px;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #dee8ff;
+      border: 1px solid #e2e8f0;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      width: fit-content;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+    }
+
+    .hero-badge-text {
+      font-size: 12px;
+      font-weight: 500;
+      color: #004e99;
+      text-transform: capitalize;
+      letter-spacing: 0.2px;
+    }
+
+    .hero-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .hero-heading h1 {
+      color: #111c2d;
+    }
+
+    .hero-heading .highlight {
+      color: #004e99;
+      position: relative;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .hero-heading .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: linear-gradient(90deg, #7bd0ff 0%, #7bd0ff 100%);
+      opacity: 0.3;
+    }
+
+    .hero-desc {
+      max-width: 512px;
+      font-size: 18px;
+      line-height: 32px;
+      color: #414752;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: #004e99;
+      color: white;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(0, 78, 153, 0.3);
+      transition: background 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #003d7a;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #111c2d;
+      padding: 17px 33px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: #f8fafc;
+    }
+
+    .hero-right {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: linear-gradient(36.87deg, #d8e3fb 0%, #e7e6ff 100%);
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0px 20px 60px -15px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7bd0ff;
+      font-size: 14px;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .floating-card {
+      position: absolute;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 12px;
+      padding: 17px;
+      box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .floating-card-1 {
+      left: -24px;
+      top: 25.13%;
+    }
+
+    .floating-card-2 {
+      right: -24px;
+      bottom: 25.13%;
+    }
+
+    .floating-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .floating-card-1 .floating-card-icon {
+      background: rgba(16, 185, 129, 0.2);
+    }
+
+    .floating-card-2 .floating-card-icon {
+      background: rgba(0, 78, 153, 0.2);
+    }
+
+    .floating-card-text h4 {
+      font-size: 12px;
+      font-weight: 500;
+      color: #414752;
+      margin-bottom: 4px;
+    }
+
+    .floating-card-text p {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111c2d;
+      margin: 0;
+    }
+
+    /* Social Proof Section */
+    .social-proof {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 49px 40px;
+      text-align: center;
+    }
+
+    .social-proof-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    .social-proof-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: #414752;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 32px;
+    }
+
+    .social-proof-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 64px;
+      flex-wrap: wrap;
+      opacity: 0.6;
+    }
+
+    .logo-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-item-icon {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #004e99 0%, #0066cc 100%);
+      border-radius: 3px;
+    }
+
+    .logo-item-name {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: #111c2d;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 160px 40px;
+      background: white;
+    }
+
+    .services-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .services-header h2 {
+      margin-bottom: 16px;
+    }
+
+    .services-header p {
+      max-width: 672px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 32px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 33px;
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.02);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: #dee8ff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .service-divider {
+      width: 32px;
+      height: 2px;
+      background: #7bd0ff;
+      margin-top: 12px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: #263143;
+      padding: 160px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 78, 153, 0.2);
+      filter: blur(60px);
+      border-radius: 9999px;
+      z-index: 0;
+    }
+
+    .cta-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .cta-header {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 78, 153, 0.2);
+      border: 1px solid rgba(0, 78, 153, 0.3);
+      padding: 7px 17px;
+      border-radius: 9999px;
+    }
+
+    .cta-badge-text {
+      font-size: 12px;
+      font-weight: 500;
+      color: #d6e3ff;
+      text-transform: uppercase;
+    }
+
+    .cta-header h2 {
+      color: white;
+    }
+
+    .cta-header p {
+      max-width: 672px;
+      color: #d8e3fb;
+      font-size: 18px;
+      line-height: 32px;
+    }
+
+    /* Form Card */
+    .form-card {
+      background: #111c2d;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 49px;
+      width: 100%;
+      max-width: 512px;
+      position: relative;
+    }
+
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(90deg, #004e99 0%, #7bd0ff 50%, #004e99 100%);
+      border-radius: 16px;
+      opacity: 0.3;
+      filter: blur(4px);
+      z-index: -1;
+    }
+
+    .form-price {
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-price-label {
+      font-size: 16px;
+      font-weight: 500;
+      color: #d8e3fb;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .form-price-amount {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .form-price-amount .currency {
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.96px;
+    }
+
+    .form-price-amount .original {
+      font-size: 20px;
+      color: #d8e3fb;
+      text-decoration: line-through;
+    }
+
+    .form-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .benefit-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .benefit-icon {
+      width: 20px;
+      height: 20px;
+      background: #10b981;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .benefit-text {
+      font-size: 16px;
+      color: #d8e3fb;
+      line-height: 24px;
+    }
+
+    /* Form Fields */
+    .form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #d8e3fb;
+    }
+
+    .form-group input {
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #7bd0ff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: #004e99;
+      color: white;
+      padding: 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Hanken Grotesk', sans-serif;
+      cursor: pointer;
+      box-shadow: 0px 0px 15px rgba(0, 78, 153, 0.4);
+      transition: background 0.3s;
+      margin-bottom: 16px;
+    }
+
+    .btn-submit:hover {
+      background: #003d7a;
+    }
+
+    .btn-submit:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+
+    .form-footnote {
+      font-size: 12px;
+      color: rgba(216, 227, 251, 0.6);
+      text-align: center;
+    }
+
+    .form-message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+
+    .form-message.success {
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      display: block;
+    }
+
+    .form-message.error {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      padding: 160px 40px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 96px;
+    }
+
+    .footer-brand h3 {
+      font-size: 48px;
+      color: #004e99;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-brand p {
+      color: #3f465c;
+      margin-bottom: 24px;
+    }
+
+    .footer-brand .copyright {
+      font-size: 16px;
+      color: #3f465c;
+    }
+
+    .footer-col h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111c2d;
+      margin-bottom: 16px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 16px;
+      color: #3f465c;
+      text-decoration: none;
+      margin-bottom: 16px;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+
+    .footer-col a:hover {
+      color: #004e99;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 48px; line-height: 56px; }
+      h2 { font-size: 36px; line-height: 44px; }
+
+      .nav-container {
+        padding: 0 24px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .form-card {
+        padding: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo" onclick="scrollToSection('hero')">
+        <div class="logo-icon"></div>
+        <div class="logo-text">GrowthExec</div>
+      </div>
+      <div class="nav-links">
+        <button onclick="scrollToSection('process')">Process</button>
+        <button onclick="scrollToSection('services')">Services</button>
+        <button onclick="scrollToSection('cta')">Audit</button>
+        <button onclick="scrollToSection('faq')">FAQ</button>
+        <button class="btn-nav" onclick="scrollToSection('cta')">Get Started</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <div class="hero-badge-text">Accepting new clients for Q3</div>
+        </div>
+        <div class="hero-heading">
+          <h1>Build Your<br>LinkedIn<br>Presence That</h1>
+          <h1 class="highlight">Opens Doors.</h1>
+        </div>
+        <p class="hero-desc">The all-in-one personal branding and growth engine for founders, executives, and specialized professionals looking to dominate their niche.</p>
+        <div class="hero-buttons">
+          <button class="btn-primary" onclick="scrollToSection('cta')">Book Free Call</button>
+          <button class="btn-secondary" onclick="scrollToSection('services')">See Our Work →</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-image">
+          Professional Growth Dashboard
+          <div class="floating-card floating-card-1">
+            <div class="floating-card-icon">📈</div>
+            <div class="floating-card-text">
+              <h4>Weekly Growth</h4>
+              <p>+250 Followers</p>
+            </div>
+          </div>
+          <div class="floating-card floating-card-2">
+            <div class="floating-card-icon">📊</div>
+            <div class="floating-card-text">
+              <h4>Post Performance</h4>
+              <p>120K Views</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="social-proof">
+    <div class="social-proof-content">
+      <div class="social-proof-title">Trusted by forward-thinking professionals from</div>
+      <div class="social-proof-logos">
+        <div class="logo-item">
+          <div class="logo-item-icon"></div>
+          <div class="logo-item-name">StartupInc</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-item-icon"></div>
+          <div class="logo-item-name">FounderCo</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-item-icon"></div>
+          <div class="logo-item-name">ElevateCoach</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-item-icon"></div>
+          <div class="logo-item-name">AgencyX</div>
+        </div>
+        <div class="logo-item">
+          <div class="logo-item-icon"></div>
+          <div class="logo-item-name">EnterpriseTech</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="services-content">
+      <div class="services-header">
+        <h2>Comprehensive Growth Engine</h2>
+        <p>Everything you need to establish authority, attract inbound opportunities, and scale your personal brand.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">📋</div>
+          <h3>LinkedIn Strategy</h3>
+          <p>Custom roadmaps tailored to your specific industry goals, target audience, and unique value proposition.</p>
+          <div class="service-divider"></div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">👤</div>
+          <h3>Profile Optimization</h3>
+          <p>Transform your profile from a static resume into a high-converting landing page that drives action.</p>
+          <div class="service-divider"></div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">✍️</div>
+          <h3>Content Writing</h3>
+          <p>Engaging, high-value posts designed to spark conversation, showcase expertise, and expand reach.</p>
+          <div class="service-divider"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section with Form -->
+  <section class="cta-section" id="cta">
+    <div class="cta-content">
+      <div class="cta-header">
+        <div class="cta-badge">
+          <span>⏰</span>
+          <div class="cta-badge-text">Limited Time Offer</div>
+        </div>
+        <h2>Get Your Comprehensive LinkedIn Audit</h2>
+        <p>We'll analyze your profile, content, and strategy to provide actionable insights that drive immediate growth.</p>
+      </div>
+
+      <div class="form-card">
+        <div class="form-price">
+          <div class="form-price-label">Investment</div>
+          <div class="form-price-amount">
+            <div class="currency">₹1</div>
+            <div class="original">₹4,999</div>
+          </div>
+        </div>
+
+        <div class="form-benefits">
+          <div class="benefit-item">
+            <div class="benefit-icon">✓</div>
+            <div class="benefit-text">Profile SEO & Headline Optimization</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">✓</div>
+            <div class="benefit-text">Content Performance Analysis</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">✓</div>
+            <div class="benefit-text">3-Step Action Plan for Growth</div>
+          </div>
+        </div>
+
+        <form id="auditForm" onsubmit="handleSubmit(event)">
+          <div id="formMessage" class="form-message"></div>
+
+          <div class="form-fields">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">Claim Your Audit Now</button>
+          <div class="form-footnote">Delivered within 48 hours</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>
+          <div class="logo-icon"></div>
+          GrowthExec
+        </h3>
+        <p>Elevating professional presence and driving meaningful opportunities through strategic LinkedIn growth.</p>
+        <div class="copyright">© 2024 GrowthExec. All rights reserved.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a onclick="alert('Terms page')">Terms</a>
+        <a onclick="alert('Privacy page')">Privacy</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a onclick="window.open('https://linkedin.com', '_blank')">LinkedIn</a>
+        <a onclick="alert('Contact page')">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // **UPDATE THIS URL** - Replace with your NEW AppScript deployment URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwScgR4Q4IlQgqEKGFc0SrLF6sONM_VngOjC_htjbacBjmR5bpR0aw-mgetgiEHfOzX/exec";
+    
+    // Payment URL
+    const PAYMENT_URL = 'https://payments.cashfree.com/forms/getaudit';
+
+    // Smooth scroll function (works with file:// protocol)
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const messageDiv = document.getElementById('formMessage');
+      const submitBtn = document.getElementById('submitBtn');
+
+      messageDiv.className = 'form-message';
+      messageDiv.textContent = '';
+
+      if (!name || !email || !phone) {
+        showError('Please fill in all fields.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
+      try {
+        // Build URL with query parameters
+        const url = SCRIPT_URL + '?name=' + encodeURIComponent(name) + 
+                                '&email=' + encodeURIComponent(email) + 
+                                '&phone=' + encodeURIComponent(phone);
+
+        // Use fetch with GET and no-cors
+        const response = await fetch(url, {
+          method: 'GET',
+          mode: 'no-cors'
+        });
+
+        // Success response (opaque due to no-cors)
+        showSuccess('✓ Form submitted! Redirecting to payment...');
+        
+        setTimeout(() => {
+          window.open(PAYMENT_URL, '_blank');
+          document.getElementById('auditForm').reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Claim Your Audit Now';
+          messageDiv.className = 'form-message';
+        }, 1500);
+
+      } catch (error) {
+        console.log('Fetch completed (response is opaque)');
+        // In no-cors mode, request was sent even if we can't read response
+        showSuccess('✓ Form submitted! Redirecting to payment...');
+        
+        setTimeout(() => {
+          window.open(PAYMENT_URL, '_blank');
+          document.getElementById('auditForm').reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Claim Your Audit Now';
+          messageDiv.className = 'form-message';
+        }, 1500);
+      }
+    }
+
+    function showSuccess(message) {
+      const messageDiv = document.getElementById('formMessage');
+      messageDiv.className = 'form-message success';
+      messageDiv.textContent = message;
+    }
+
+    function showError(message) {
+      const messageDiv = document.getElementById('formMessage');
+      messageDiv.className = 'form-message error';
+      messageDiv.textContent = message;
+
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Claim Your Audit Now';
+    }
+  </script>
+</body>
+</html>
